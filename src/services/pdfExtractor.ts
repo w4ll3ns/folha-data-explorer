@@ -1,9 +1,11 @@
 import * as pdfjsLib from 'pdfjs-dist';
 import { Employee, ExtractionResult, ProcessingStats } from '@/types/employee';
 
-// Configurar worker do PDF.js de forma robusta
+// Configurar worker do PDF.js para versão 3.11.174 estável
 if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+  // Usar versão específica conhecida como estável
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
+  console.log('PDF.js worker configurado para versão 3.11.174');
 }
 
 export class PDFExtractor {
@@ -159,27 +161,61 @@ export class PDFExtractor {
 
   static async extractFromFile(file: File): Promise<Employee[]> {
     try {
+      // Verificar se o worker está configurado corretamente
+      if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+        throw new Error('Worker do PDF.js não configurado');
+      }
+
+      console.log('Processando arquivo:', file.name, 'Tamanho:', file.size);
+      
       const arrayBuffer = await file.arrayBuffer();
+      
+      // Configuração simples e estável para o PDF
       const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
       const allEmployees: Employee[] = [];
 
-      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-        const page = await pdf.getPage(pageNum);
-        const textContent = await page.getTextContent();
-        
-        const textLines = textContent.items
-          .filter(item => 'str' in item)
-          .map(item => (item as any).str)
-          .filter(str => str.trim().length > 0);
+      console.log(`PDF carregado: ${pdf.numPages} páginas`);
 
-        const pageEmployees = this.extractEmployeeData(textLines);
-        allEmployees.push(...pageEmployees);
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        try {
+          const page = await pdf.getPage(pageNum);
+          const textContent = await page.getTextContent();
+          
+          const textLines = textContent.items
+            .filter(item => 'str' in item)
+            .map(item => (item as any).str)
+            .filter(str => str.trim().length > 0);
+
+          console.log(`Página ${pageNum}: ${textLines.length} linhas de texto extraídas`);
+
+          const pageEmployees = this.extractEmployeeData(textLines);
+          allEmployees.push(...pageEmployees);
+          
+          console.log(`Página ${pageNum}: ${pageEmployees.length} colaboradores encontrados`);
+        } catch (pageError) {
+          console.warn(`Erro ao processar página ${pageNum}:`, pageError);
+          // Continue processando outras páginas
+        }
       }
 
+      console.log(`Total de colaboradores extraídos do arquivo ${file.name}: ${allEmployees.length}`);
       return allEmployees;
+      
     } catch (error) {
-      console.error('Erro ao processar PDF:', error);
-      throw new Error(`Erro ao processar arquivo ${file.name}: ${error instanceof Error ? error.message : 'Erro desconhecido'}`);
+      console.error('Erro detalhado ao processar PDF:', error);
+      
+      // Melhor tratamento de erros específicos
+      if (error instanceof Error) {
+        if (error.message.includes('worker')) {
+          throw new Error(`Erro no worker do PDF.js para arquivo ${file.name}. Tente recarregar a página.`);
+        }
+        if (error.message.includes('Invalid PDF')) {
+          throw new Error(`Arquivo ${file.name} não é um PDF válido ou está corrompido.`);
+        }
+        throw new Error(`Erro ao processar arquivo ${file.name}: ${error.message}`);
+      }
+      
+      throw new Error(`Erro desconhecido ao processar arquivo ${file.name}`);
     }
   }
 
