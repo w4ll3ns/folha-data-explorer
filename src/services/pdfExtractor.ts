@@ -1,8 +1,10 @@
 import * as pdfjsLib from 'pdfjs-dist';
 import { Employee, ExtractionResult, ProcessingStats } from '@/types/employee';
 
-// Configurar worker do PDF.js
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
+// Configurar worker do PDF.js de forma robusta
+if (typeof window !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+}
 
 export class PDFExtractor {
   private static generateId(): string {
