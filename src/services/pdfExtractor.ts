@@ -5,7 +5,7 @@ import { Employee, ExtractionResult, ProcessingStats } from '@/types/employee';
 if (typeof window !== 'undefined') {
   // Usar versão específica conhecida como estável
   pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
-  console.log('PDF.js worker configurado para versão 3.11.174');
+  console.log('PDF.js worker configurado para versão 3.11.174 - API version:', pdfjsLib.version);
 }
 
 export class PDFExtractor {

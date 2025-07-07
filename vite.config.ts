@@ -10,7 +10,8 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   optimizeDeps: {
-    include: ['pdfjs-dist']
+    include: ['pdfjs-dist'],
+    force: true // Força a recompilação das dependências
   },
   plugins: [
     react(),
