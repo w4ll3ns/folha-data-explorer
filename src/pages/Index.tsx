@@ -8,9 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FileSpreadsheet, RefreshCw, Upload } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import { EmployeeProvider, useEmployees } from '@/components/EmployeeProvider';
+import { Link } from 'react-router-dom';
 
-const Index = () => {
-  const [employees, setEmployees] = useState<Employee[]>([]);
+const IndexContent = () => {
+  const { employees, setEmployees } = useEmployees();
   const [extractionResult, setExtractionResult] = useState<ExtractionResult | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingProgress, setProcessingProgress] = useState(0);
@@ -33,6 +35,8 @@ const Index = () => {
 
       setExtractionResult(result);
       setEmployees(result.employees);
+      // Log detalhado dos dados extraídos
+      console.log('[DEBUG][Employees extraídos]', JSON.stringify(result.employees, null, 2));
 
       if (result.success) {
         toast({
@@ -59,10 +63,13 @@ const Index = () => {
   };
 
   const resetApplication = () => {
-    setEmployees([]);
-    setExtractionResult(null);
-    setIsProcessing(false);
-    setProcessingProgress(0);
+    if (window.confirm('Tem certeza que deseja iniciar um novo processamento? Todos os dados atuais serão perdidos.')) {
+      setEmployees([]);
+      setExtractionResult(null);
+      setIsProcessing(false);
+      setProcessingProgress(0);
+      localStorage.removeItem('folha:employees');
+    }
   };
 
   return (
@@ -80,17 +87,25 @@ const Index = () => {
                 <p className="text-primary-foreground/80">Processamento inteligente de PDFs para Excel</p>
               </div>
             </div>
-            
-            {employees.length > 0 && (
-              <Button
-                onClick={resetApplication}
-                variant="secondary"
-                className="bg-primary-foreground/20 hover:bg-primary-foreground/30 text-primary-foreground border-0"
-              >
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Novo Processamento
-              </Button>
-            )}
+            <div className="flex items-center gap-2">
+              {employees.length > 0 && (
+                <>
+                  <Link to="/totais">
+                    <Button variant="secondary" className="bg-primary-foreground/20 hover:bg-primary-foreground/30 text-primary-foreground border-0">
+                      Totais por Evento
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={resetApplication}
+                    variant="secondary"
+                    className="bg-primary-foreground/20 hover:bg-primary-foreground/30 text-primary-foreground border-0"
+                  >
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Novo Processamento
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -156,5 +171,11 @@ const Index = () => {
     </div>
   );
 };
+
+const Index = () => (
+  <EmployeeProvider>
+    <IndexContent />
+  </EmployeeProvider>
+);
 
 export default Index;

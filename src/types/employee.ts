@@ -10,22 +10,26 @@ export interface Employee {
   admissao?: string;
   demissao?: string;
   salarioBase: number;
+  eventos: Evento[];
   proventos: Provento[];
   descontos: Desconto[];
   bases: BasesCalculo;
   valores: ValoresCalculados;
+  eventosBrutos?: string[];
 }
 
 export interface Provento {
   tipo: string;
   valor: number;
   codigo?: string;
+  ref?: string;
 }
 
 export interface Desconto {
   tipo: string;
   valor: number;
   codigo?: string;
+  ref?: string;
 }
 
 export interface BasesCalculo {
@@ -54,4 +58,16 @@ export interface ExtractionResult {
   employees: Employee[];
   stats: ProcessingStats;
   success: boolean;
+}
+
+export interface Evento {
+  codigo: string;
+  tipo: string;
+  valor: number;
+  ref: string;
+}
+
+export interface EmployeeContextType {
+  employees: Employee[];
+  setEmployees: (employees: Employee[]) => void;
 }
