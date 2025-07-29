@@ -11,6 +11,8 @@ import { toast } from '@/hooks/use-toast';
 import { EmployeeProvider, useEmployees } from '@/components/EmployeeProvider';
 import { Link } from 'react-router-dom';
 import { LogoFlexible } from '@/components/Logo';
+import { LogoTest } from '@/components/LogoTest';
+import { LogoDebug } from '@/components/LogoDebug';
 
 const IndexContent = () => {
   const { employees, setEmployees } = useEmployees();
@@ -80,10 +82,10 @@ const IndexContent = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <LogoFlexible 
-              customImage="/logo.svg" 
+              customImage="/logo.png" 
               width="180px"
               height="auto"
-              customImageAlt="Extrator de Folhas Analíticas"
+              customImageAlt="OXYGENI DIT - Extrator de Folhas Analíticas"
             />
             <div className="flex items-center gap-2">
               {employees.length > 0 && (
@@ -109,6 +111,12 @@ const IndexContent = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8 space-y-8">
+        {/* Teste da Logo */}
+        <div className="max-w-4xl mx-auto space-y-4">
+          <LogoTest />
+          <LogoDebug />
+        </div>
+        
         {/* Área de Upload */}
         {employees.length === 0 && (
           <div className="max-w-4xl mx-auto">
