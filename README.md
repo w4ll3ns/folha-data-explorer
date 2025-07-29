@@ -1,73 +1,100 @@
-# Welcome to your Lovable project
+# Folha Data Explorer
 
-## Project info
+Sistema profissional para extração e análise de dados de folhas analíticas em PDF com exportação para Excel.
 
-**URL**: https://lovable.dev/projects/6a39a382-0fad-47b5-86b5-d11c451bbd2d
+## 🚀 Funcionalidades
 
-## How can I edit this code?
+- **Upload Múltiplo**: Suporte para múltiplos arquivos PDF
+- **Extração Inteligente**: Parser avançado para diferentes formatos de folhas analíticas
+- **Processamento em Lote**: Extração automática de dados de colaboradores
+- **Filtros Avançados**: Busca por nome, matrícula, função e filial
+- **Exportação Excel**: Geração de relatórios estruturados
+- **Totalização**: Análise por eventos e filiais
+- **Interface Responsiva**: Design moderno e intuitivo
 
-There are several ways of editing your application.
+## 🛠️ Tecnologias
 
-**Use Lovable**
+- **Frontend**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **UI Framework**: shadcn/ui + Tailwind CSS
+- **PDF Processing**: PDF.js
+- **Excel Export**: xlsx
+- **State Management**: React Context API
+- **Routing**: React Router DOM
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6a39a382-0fad-47b5-86b5-d11c451bbd2d) and start prompting.
+## 📦 Instalação
 
-Changes made via Lovable will be committed automatically to this repo.
+```bash
+# Clone o repositório
+git clone <repository-url>
+cd folha-data-explorer
 
-**Use your preferred IDE**
+# Instale as dependências
+npm install
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Execute em modo desenvolvimento
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 🎯 Como Usar
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. **Upload de Arquivos**: Arraste e solte arquivos PDF ou clique para selecionar
+2. **Processamento**: O sistema extrai automaticamente os dados
+3. **Visualização**: Dados organizados em tabela navegável
+4. **Filtros**: Use os filtros para encontrar informações específicas
+5. **Exportação**: Baixe os dados em formato Excel
+6. **Totalização**: Acesse a página de totais para análises agregadas
 
-**Use GitHub Codespaces**
+## 📊 Estrutura do Projeto
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+src/
+├── components/          # Componentes React
+│   ├── ui/             # Componentes de interface
+│   ├── EmployeeTable.tsx
+│   ├── PDFUploader.tsx
+│   └── EmployeeProvider.tsx
+├── pages/              # Páginas da aplicação
+│   ├── Index.tsx
+│   └── TotalsPage.tsx
+├── services/           # Serviços e lógica de negócio
+│   └── pdfExtractor.ts
+├── types/              # Definições de tipos TypeScript
+│   └── employee.ts
+└── hooks/              # Hooks customizados
+```
 
-## What technologies are used for this project?
+## 🔧 Scripts Disponíveis
 
-This project is built with:
+```bash
+npm run dev          # Inicia servidor de desenvolvimento
+npm run build        # Gera build de produção
+npm run build:dev    # Gera build de desenvolvimento
+npm run lint         # Executa linter
+npm run preview      # Visualiza build de produção
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📈 Recursos Avançados
 
-## How can I deploy this project?
+- **Parser Inteligente**: Suporte a múltiplos formatos de folhas analíticas
+- **Validação de Dados**: Verificação automática de integridade
+- **Cache Local**: Persistência de dados no localStorage
+- **Progress Tracking**: Acompanhamento do processamento
+- **Error Handling**: Tratamento robusto de erros
+- **Responsive Design**: Interface adaptável a diferentes dispositivos
 
-Simply open [Lovable](https://lovable.dev/projects/6a39a382-0fad-47b5-86b5-d11c451bbd2d) and click on Share -> Publish.
+## 🤝 Contribuição
 
-## Can I connect a custom domain to my Lovable project?
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
-Yes, you can!
+## 📄 Licença
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 📞 Suporte
+
+Para dúvidas ou suporte, abra uma issue no repositório do projeto.
