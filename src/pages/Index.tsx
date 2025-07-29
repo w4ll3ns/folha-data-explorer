@@ -10,7 +10,7 @@ import { RefreshCw, Upload } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { EmployeeProvider, useEmployees } from '@/components/EmployeeProvider';
 import { Link } from 'react-router-dom';
-import { Logo } from '@/components/Logo';
+import { LogoFlexible } from '@/components/Logo';
 
 const IndexContent = () => {
   const { employees, setEmployees } = useEmployees();
@@ -79,9 +79,10 @@ const IndexContent = () => {
       <div className="bg-gradient-primary text-primary-foreground shadow-lg-custom">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <Logo 
-              size="lg" 
+            <LogoFlexible 
               customImage="/logo.svg" 
+              width="180px"
+              height="auto"
               customImageAlt="Extrator de Folhas Analíticas"
             />
             <div className="flex items-center gap-2">
