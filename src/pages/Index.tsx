@@ -6,10 +6,11 @@ import { PDFExtractor } from '@/services/pdfExtractor';
 import { Employee, ExtractionResult } from '@/types/employee';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileSpreadsheet, RefreshCw, Upload } from 'lucide-react';
+import { RefreshCw, Upload } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { EmployeeProvider, useEmployees } from '@/components/EmployeeProvider';
 import { Link } from 'react-router-dom';
+import { Logo } from '@/components/Logo';
 
 const IndexContent = () => {
   const { employees, setEmployees } = useEmployees();
@@ -78,15 +79,11 @@ const IndexContent = () => {
       <div className="bg-gradient-primary text-primary-foreground shadow-lg-custom">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center">
-                <FileSpreadsheet className="w-6 h-6" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold">Extrator de Folhas Analíticas</h1>
-                <p className="text-primary-foreground/80">Processamento inteligente de PDFs para Excel</p>
-              </div>
-            </div>
+            <Logo 
+              size="lg" 
+              customImage="/logo.svg" 
+              customImageAlt="Extrator de Folhas Analíticas"
+            />
             <div className="flex items-center gap-2">
               {employees.length > 0 && (
                 <>
