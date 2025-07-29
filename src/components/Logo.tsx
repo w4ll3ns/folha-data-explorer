@@ -1,5 +1,6 @@
 import React from 'react';
 import { FileSpreadsheet } from 'lucide-react';
+import logoImage from '@/assets/logo.png';
 
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -45,13 +46,16 @@ export const Logo: React.FC<LogoProps> = ({
     lg: 'max-w-12 max-h-12'
   };
 
+  // Usar logo importada como fallback se não houver customImage
+  const imageSrc = customImage || logoImage;
+
   return (
     <div className={`flex items-center space-x-3 ${className}`}>
       {/* Logo Icon/Image Container */}
       <div className={`${sizeClasses[size]} bg-primary-foreground/20 rounded-lg flex items-center justify-center overflow-hidden`}>
-        {customImage ? (
+        {imageSrc ? (
           <img 
-            src={customImage} 
+            src={imageSrc} 
             alt={customImageAlt}
             className={`${imageSizes[size]} ${maxWidth || ''} ${maxHeight || ''} object-contain`}
             style={{
@@ -106,12 +110,15 @@ export const LogoFlexible: React.FC<Omit<LogoProps, 'size'> & {
     lg: 'text-2xl'
   };
 
+  // Usar logo importada como fallback se não houver customImage
+  const imageSrc = customImage || logoImage;
+
   return (
     <div className={`flex items-center space-x-3 ${className}`}>
       {/* Logo Image - Flexível */}
-      {customImage ? (
+      {imageSrc ? (
         <img 
-          src={customImage} 
+          src={imageSrc} 
           alt={customImageAlt}
           className={`object-contain ${maxWidth || ''} ${maxHeight || ''}`}
           style={{

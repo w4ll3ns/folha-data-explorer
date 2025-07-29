@@ -80,7 +80,6 @@ const IndexContent = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <LogoFlexible 
-              customImage="/logo.png?v=1" 
               width="180px"
               height="auto"
               customImageAlt="OXYGENI DIT - Extrator de Folhas Analíticas"
