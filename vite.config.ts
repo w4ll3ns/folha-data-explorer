@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/folha-data-explorer/',
+  base: mode === 'production' ? '/folha-data-explorer/' : '/',
   server: {
     host: "::",
     port: 8080,

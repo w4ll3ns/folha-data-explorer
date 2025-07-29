@@ -18,7 +18,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <EmployeeProvider>
-          <BrowserRouter>
+          <BrowserRouter basename={import.meta.env.PROD ? '/folha-data-explorer' : '/'}>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/totais" element={<TotalsPage />} />
